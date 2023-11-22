@@ -1,7 +1,13 @@
+#![no_std]
+
 #[cfg(test)]
 extern crate quickcheck;
 
-use std::cmp::min;
+extern crate alloc;
+
+use core::cmp::min;
+
+use alloc::{string::String, vec::Vec};
 
 #[derive(Copy, Clone)]
 pub enum Alphabet {
@@ -105,8 +111,10 @@ pub fn decode(alphabet: Alphabet, data: &str) -> Option<Vec<u8>> {
 mod test {
     use super::Alphabet::{Crockford, RFC4648};
     use super::{decode, encode};
+    use alloc::string::String;
+    use alloc::vec::Vec;
+    use core::fmt::{Debug, Error, Formatter};
     use quickcheck::{self, Arbitrary, Gen};
-    use std::fmt::{Debug, Error, Formatter};
 
     #[derive(Clone)]
     struct B32 {
